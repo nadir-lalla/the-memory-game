@@ -29,8 +29,8 @@ def main():
 
         while tries > 0 and remainder !=0:
         
-            guess_r1 = r1_position(input(f'Pick a position in ROW 1 to flip [1-10]: '))
-            guess_r2 = r2_position(input(f'Pick a position in ROW 2 to flip [1-10]: '))
+            guess_r1 = r1_position()
+            guess_r2 = r2_position()
 
             if r1[guess_r1] == r2[guess_r2]:
                 if board[guess_r1] == r1[guess_r1]:
@@ -115,13 +115,13 @@ def mixer(list1,list2):
     random.shuffle(list2)
 
 
-def r1_position(inp):
+def r1_position():
     r1_pos = 0
     guess_options = range(1,11)
     
     while r1_pos not in guess_options:
         try:
-            r1_pos = int(inp)
+            r1_pos = int(input(f'Pick a position in ROW 1 to flip [1-10]: '))
         except ValueError:
             print('Must be a number. Try again!')
         else:
@@ -130,13 +130,13 @@ def r1_position(inp):
     return r1_pos-1
 
 
-def r2_position(inp):
+def r2_position():
     r2_pos = 0
     guess_options = range(1,11)
     
     while r2_pos not in guess_options:
         try:
-            r2_pos = int(inp)
+            r2_pos = int(input(f'Pick a position in ROW 2 to flip [1-10]: '))
         except ValueError:
             print('Must be a number. Try again!')
         else:
@@ -146,9 +146,12 @@ def r2_position(inp):
 
 
 def replay():
-    again = input('Do you want to play again? Enter Yes or No: ').lower()
+    again = input('Do you want to play again? Enter Yes or No: [Default: No] ').lower()
+    if not again:
+        return False
     while again not in ["yes", "no","y", "n"]:
         print('Invalid Entry')
+        return False
     else:
         if again in ['y', 'yes']:
             return True
