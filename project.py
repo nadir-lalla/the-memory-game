@@ -4,10 +4,14 @@ import random
 def main():
 
     print("Welcome to Picture Match\n")
-    print("There are 10 'pictures' (emojis) in ROW 1 and ROW 2")
-    print("The ojective of the game is to match the PICTURES in ROW 1 to the PICTURES in ROW 2")
+    print("There are 10 'pictures' (emojis) in ROW 1, and similarly 10 idendical pictures in ROW 2")
+    print("The ojective of the game is to match the PICTURES in ROW 1 to the PICTURES in ROW 2, which have been randomised")
     
+    #Set ans to True to show the answer before playing
     ans = False
+    shuffle = True
+
+    #Initial Rows before shuffle
     r1 = ['🍇','🍊','🍋','🍏','🍆','🍄','🥟','🌎','🧡','🐶']
     r2 = ['🍇','🍊','🍋','🍏','🍆','🍄','🥟','🌎','🧡','🐶']
     remainder = len(r1)
@@ -19,11 +23,11 @@ def main():
         print(game_board(board))
 
         
-        print("\nFirst you have to choose how many tries you will like to have")
+        print("\nLower tries = harder game. Test your luck!!!")
 
         tries = attempts()
 
-        #mixer(r1, r2)
+        mixer(shuffle, r1, r2)
 
         answer(ans, r1, r2)
 
@@ -46,7 +50,12 @@ def main():
                     print(game_board(board))
                 
             else:
-                print('\nNo Match')
+                print('\nNO MATCH', end="\t")
+                if tries == 1:
+                    print(f'(You have {tries} try left)')
+                else:
+                    print(f'(You have {tries} tries left)')
+
                 print(game_board(board))
                 tries = tries - 1
                 if tries == 0:
@@ -54,10 +63,6 @@ def main():
                     print('You have ran out of tries\n')
                     answer(True, r1, r2)
                 else:
-                    if tries == 1:
-                        print(f'(You have {tries} try left)')
-                    else:
-                        print(f'(You have {tries} tries left)')
                     print('\nHINT:')
                     print(f'\tROW 1 position {guess_r1+1} is {r1[guess_r1]}')
                     print(f'\tROW 2 position {guess_r2+1} is {r2[guess_r2]}\n')
@@ -110,9 +115,12 @@ def attempts():
     return tries
 
 
-def mixer(list1,list2):
-    random.shuffle(list1)
-    random.shuffle(list2)
+def mixer(shuffle, list1,list2):
+    if shuffle:
+        random.shuffle(list1)
+        random.shuffle(list2)
+    else:
+        print("Mixer disabled, default board used\n")
 
 
 def r1_position():
