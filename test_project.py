@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 from project import game_board, attempts, r1_position, r2_position, replay
 
